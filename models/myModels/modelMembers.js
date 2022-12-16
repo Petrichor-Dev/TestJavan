@@ -1,8 +1,13 @@
 const { family_members } = require('../');
 
-const getMember = async (res) => {
-  const result = await family_members.findAll();
-  return result;
+const getMember = async (res, uid) => {
+  if(uid){
+    const result = await family_members.findByPk(uid);
+    return result;
+  } else {
+    const result = await family_members.findAll();
+    return result;
+  }
 }
 
 const createMember = async (res, data) => {

@@ -11,14 +11,16 @@ router.get('/', async function(req, res) {
 router.post('/members/add', async function(req, res) {
   const data = {
     nama: req.body.nama,
-    gender: req.body.gender
+    jenis_kelamin: req.body.gender
   }
 
   createMember(res, data);
 });
-router.get('/members/detail/:id', (req, res) => {
-  res.render('detailMembers');
-  let params = req.params.id;
+router.get('/members/detail/:id', async (req, res) => {
+  let uid = req.params.id;
+  const result = await getMember(res, uid);
+  // res.send(result)
+  res.render('detailMembers', {result});
 });
 
 router.get('/members/delete/:id', (req, res) => {

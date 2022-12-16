@@ -8,7 +8,7 @@
 
     <div class="col-md-1">
       <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
         <b>Add Member</b>
       </button>
 
@@ -53,9 +53,9 @@
     <tbody>
       <% result.forEach(data => { %>
         <tr>
-          <th><%= data.id %></th>
+          <th>#</th>
           <td><%= data.nama %></td>
-          <td>|<a href='members/delete/<%= data.id %>'> Hapus</a> | | <a href='members/detail/<%= data.id %>'>Detail</a> |</td>
+          <td><a class="btn btn-outline-danger" href='members/delete/<%= data.id %>'> Hapus</a> <a class="btn btn-outline-primary" href='members/detail/<%= data.id %>'>Detail</a></td>
         </tr>
       <% }); %>
     </tbody>
