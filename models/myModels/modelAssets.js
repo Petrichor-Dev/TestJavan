@@ -4,8 +4,9 @@ const createAsset = () => {
 
 }
 
-const getAsset = () => {
-
+const getAsset = async (res) => {
+  const userData = await family_assets.findAll();
+  res.send(userData);
 }
 
 const updateAsset = () => {

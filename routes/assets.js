@@ -3,7 +3,8 @@ var router = express.Router();
 const { createAsset, getAsset, updateAsset, deleteAsset } = require('../models/myModels/modelAssets');
 
 router.get('/', (req, res) => {
-  res.render('assets', {isActive:'active'});
+  getAsset(res);
+  // res.render('assets');
 });
 
 router.get('/detail/:id', (req, res) => {

@@ -1,3 +1,64 @@
-<%- include('layouts/header')%>
-<h1>assets</h1>
-<%- include('layouts/footer')%>
+<%- include('layouts/header'); %>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-11">
+      <h3>Daftar Anggota Keluarga</h3>
+    </div>
+
+    <div class="col-md-1">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <b>Add Data</b>
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
+                </div>
+                <div class="mb-3">
+                  <select class="form-select" aria-label="Default select example">
+                    <option selected>Pilih Jenis Kelamin</option>
+                    <option value="laki laki">Laki Laki</option>
+                    <option value="perempuan">Perempuan</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <table class="table mt-4 text-center">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nama</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% result.forEach(data => { %>
+        <tr>
+          <th><%= data.id %></th>
+          <td><%= data.nama %></td>
+          <td>|<a href='member/delete/<%= data.id %>'> Hapus</a> | | <a href='member/detail/<%= data.id %>'>Detail</a> |</td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+<%- include('layouts/footer') %>

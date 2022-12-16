@@ -1,33 +1,64 @@
 <%- include('layouts/header'); %>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-11">
+      <h5 class="display-5">Daftar Anggota Keluarga</h5>
+    </div>
 
+    <div class="col-md-1">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <b>Add Member</b>
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Tambah Anggota Keluarga</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="post" action="/members/add">
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="name" name="nama" aria-describedby="emailHelp" placeholder="Your Name">
+                </div>
+                <div class="mb-3">
+                  <select class="form-select" name="gender" aria-label="Default select example">
+                    <option selected>Pilih Jenis Kelamin</option>
+                    <option value="laki laki">Laki Laki</option>
+                    <option value="perempuan">Perempuan</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Tambah</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <table class="table mt-5 text-center">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nama</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% result.forEach(data => { %>
+        <tr>
+          <th><%= data.id %></th>
+          <td><%= data.nama %></td>
+          <td>|<a href='members/delete/<%= data.id %>'> Hapus</a> | | <a href='members/detail/<%= data.id %>'>Detail</a> |</td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
 <%- include('layouts/footer') %>
