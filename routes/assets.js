@@ -22,4 +22,9 @@ router.get('/detail/:id', (req, res) => {
   res.send(`detail assets page ID ${params}`);
 });
 
+router.get('/delete/:uid', (req, res) => {
+  let uid = req.params.uid;
+  deleteAsset(res, uid);
+});
+
 module.exports = router;

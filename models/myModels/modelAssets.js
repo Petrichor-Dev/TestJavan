@@ -13,15 +13,16 @@ const createAsset = async (res, data, uid) => {
 
 const getAsset = async (res) => {
   const result = await family_assets.findAll();
-  return result
+  return result;
 }
 
 const updateAsset = () => {
 
 }
 
-const deleteAsset = () => {
-
+const deleteAsset = (res, uid) => {
+  family_assets.destroy({where:{id:uid}});
+  res.redirect('/assets');
 }
 
 

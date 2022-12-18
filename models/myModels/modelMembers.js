@@ -22,7 +22,7 @@ const updateMember = async (res, data, uid) => {
 
 const deleteMember = (res, uid) => {
   family_members.destroy({where:{id:uid}});
-  res.redirect('/')
+  res.redirect('/');
 }
 
 module.exports = { createMember, getMember, updateMember, deleteMember };
