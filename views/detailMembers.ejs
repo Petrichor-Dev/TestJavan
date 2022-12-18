@@ -1,16 +1,18 @@
 <%- include('layouts/header') %>
 
 <!-- ----------------DETAIL DATA---------------- -->
-<div class="container mt-5 mb-5">
+<div class="container mt-3 mb-3">
+  <a href="/" class="btn btn-primary"><- Back</a>
+</div>
+<div class="container bg-light mb-3 mb-5 py-2">
   <div class="row">
     <div class="col-md-10">
-      <h3>Detail data</h5>
+      <h3>Data Diri</h5>
     </div>
   </div>
   <table class="table mt-2 text-center">
     <thead>
       <tr>
-        <th>#</th>
         <th>Nama</th>
         <th>Jenis Kelamin</th>
         <th>Action</th>
@@ -19,13 +21,12 @@
     <tbody>
 
         <tr>
-          <th>#</th>
           <td><%= result.nama.toUpperCase(); %></td>
           <td><%= result.jenis_kelamin.toUpperCase() %></td>
           <td>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editData">
-              <b>Edit Data</b>
+              <b>Edit</b>
             </button>
 
             <!-- Modal -->
@@ -37,13 +38,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <form method="post" action="/members/add">
+                    <form method="post" action="/members/update/<%= result.id; %>">
                       <div class="mb-3">
-                        <input type="text" class="form-control" id="name" name="nama" aria-describedby="emailHelp" placeholder="Your Name">
+                        <input type="text" class="form-control" id="name" name="nama" placeholder="Your Name" value="<%= result.nama; %>">
                       </div>
                       <div class="mb-3">
                         <select class="form-select" name="gender" aria-label="Default select example">
-                          <option selected>Pilih Jenis Kelamin</option>
+                          <option selected value="<%= result.jenis_kelamin; %>"><%= result.jenis_kelamin; %></option>
                           <option value="laki laki">Laki Laki</option>
                           <option value="perempuan">Perempuan</option>
                         </select>
@@ -60,14 +61,11 @@
   </table>
 </div>
 
-<hr style="border:solid 2px brown;">
-
-
 <!-- ----------------DETAIL ASSETS---------------- -->
-<div class="container mt-5">
+<div class="container bg-light mt-5 py-3">
   <div class="row">
     <div class="col-md-10">
-      <h3>Detail asset</h3>
+      <h3>Data Asset</h3>
     </div>
     <div class="col-md-2">
       <!-- Button trigger modal -->
@@ -85,12 +83,12 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form method="post" action="/members/add">
+              <form method="post" action="/assets/add/<%= result.id; %>">
                 <div class="mb-3">
-                  <input type="text" class="form-control" name="nama_asset" aria-describedby="emailHelp" placeholder="Nama Asset">
+                  <input type="text" class="form-control" name="nama_asset" placeholder="Nama Asset">
                 </div>
                 <div class="mb-3">
-                  <input type="number" class="form-control" name="harga_asset" aria-describedby="emailHelp" placeholder="Harga Asset">
+                  <input type="number" class="form-control" name="harga_asset" placeholder="Harga Asset">
                 </div>
                 <button type="submit" class="btn btn-primary">Kirim</button>
               </form>
@@ -115,10 +113,10 @@
           <th>#</th>
           <td>Ipon</td>
           <td>20000</td>
-          <td><a href="#" class="btn btn-outline-danger">Hapus</a>
+          <td><a href="#" class="btn btn-outline-danger" onclick="return confirm('Are you sure ?')">Hapus</a>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editAsset">
-              <b>Edit Data</b>
+              <b>Edit</b>
             </button>
 
             <!-- Modal -->
@@ -132,10 +130,10 @@
                   <div class="modal-body">
                     <form method="post" action="/members/add">
                       <div class="mb-3">
-                        <input type="text" class="form-control" name="nama_asset" aria-describedby="emailHelp" placeholder="Nama Asset">
+                        <input type="text" class="form-control" name="nama_asset" placeholder="Nama Asset">
                       </div>
                       <div class="mb-3">
-                        <input type="number" class="form-control" name="harga_asset" aria-describedby="emailHelp" placeholder="Harga Asset">
+                        <input type="number" class="form-control" name="harga_asset" placeholder="Harga Asset">
                       </div>
                       <button type="submit" class="btn btn-primary">Kirim</button>
                     </form>

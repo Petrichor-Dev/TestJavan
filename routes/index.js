@@ -16,15 +16,25 @@ router.post('/members/add', async function(req, res) {
 
   createMember(res, data);
 });
-router.get('/members/detail/:id', async (req, res) => {
-  let uid = req.params.id;
+
+router.post('/members/update/:uid', async function(req, res) {
+  const uid = req.params.uid;
+  const data = {
+    nama: req.body.nama,
+    jenis_kelamin: req.body.gender
+  }
+  updateMember(res, data, uid);
+});
+
+router.get('/members/detail/:uid', async (req, res) => {
+  let uid = req.params.uid;
   const result = await getMember(res, uid);
   // res.send(result)
   res.render('detailMembers', {result});
 });
 
-router.get('/members/delete/:id', (req, res) => {
-  let uid = req.params.id;
+router.get('/members/delete/:uid', (req, res) => {
+  let uid = req.params.uid;
   deleteMember(res, uid);
 });
 

@@ -1,6 +1,6 @@
 <%- include('layouts/header'); %>
 
-<div class="container mt-4">
+<div class="container bg-light mt-4 py-3 px-5">
   <div class="row">
     <div class="col-md-11">
       <h5 class="display-5">Daftar Anggota Keluarga</h5>
@@ -55,7 +55,7 @@
         <tr>
           <th>#</th>
           <td><%= data.nama %></td>
-          <td><a class="btn btn-outline-danger" href='members/delete/<%= data.id %>'> Hapus</a> <a class="btn btn-outline-primary" href='members/detail/<%= data.id %>'>Detail</a></td>
+          <td><a onclick="return confirm('Are you sure ?')" class="btn btn-outline-danger" href='members/delete/<%= data.id %>'> Hapus</a> <a class="btn btn-outline-primary" href='members/detail/<%= data.id %>'>Detail</a></td>
         </tr>
       <% }); %>
     </tbody>

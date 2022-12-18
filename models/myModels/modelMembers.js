@@ -15,8 +15,9 @@ const createMember = async (res, data) => {
   res.redirect('/');
 }
 
-const updateMember = () => {
-  return true;
+const updateMember = async (res, data, uid) => {
+  await family_members.update(data, {where:{id:uid}});
+  res.redirect(`/members/detail/${uid}`);
 }
 
 const deleteMember = (res, uid) => {

@@ -3,13 +3,13 @@
 <div class="container mt-4">
   <div class="row">
     <div class="col-md-11">
-      <h3>Daftar Anggota Keluarga</h3>
+      <h3>Daftar Asset Keluarga</h3>
     </div>
 
     <div class="col-md-1">
       <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <b>Add Data</b>
+      <button type="button" class="btn btn-success ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <b>Add Asset</b>
       </button>
 
       <!-- Modal -->
@@ -47,15 +47,17 @@
       <tr>
         <th>#</th>
         <th>Nama</th>
+        <th>Harga</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
       <% result.forEach(data => { %>
         <tr>
-          <th><%= data.id %></th>
+          <th>#</th>
           <td><%= data.nama %></td>
-          <td>|<a href='member/delete/<%= data.id %>'> Hapus</a> | | <a href='member/detail/<%= data.id %>'>Detail</a> |</td>
+          <td><%= data.harga %></td>
+          <td><a class="btn btn-outline-danger" onclick="return confirm('Are you sure ?')" href='asset/delete/<%= data.id %>'>Hapus</a> <a class="btn btn-outline-primary" href='asset/detail/<%= data.id %>'>Detail</a></td>
         </tr>
       <% }); %>
     </tbody>
