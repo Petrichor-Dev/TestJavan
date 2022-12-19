@@ -1,6 +1,13 @@
-var express = require('express');
-var router = express.Router();
-const { createMember, getMember, updateMember, deleteMember } = require('../models/myModels/modelMembers');
+const express = require('express');
+const router = express.Router();
+const { Sequelize, QueryTypes } = require('sequelize');
+const sequelize = new Sequelize('test_javan', 'root', '', {
+  host: 'localhost',
+  dialect: 'mysql'
+});
+const { createMember, getMember, updateMember, deleteMember} = require('../models/myModels/modelMembers');
+const { family_assets } = require('../models');
+
 
 /* GET home page. */
 router.get('/', async function(req, res) {
@@ -29,8 +36,12 @@ router.post('/members/update/:uid', async function(req, res) {
 router.get('/members/detail/:uid', async (req, res) => {
   let uid = req.params.uid;
   const result = await getMember(res, uid);
-  // res.send(result)
-  res.render('detailMembers', {result});
+  const [dataAsset, meta] = await sequelize.query(`
+    SELECT ownerships.id_member, family_assets.id, family_assets.nama, family_assets.harga
+      FROM family_assets
+      JOIN ownerships
+        ON (ownerships.id_member = ${uid}) AND (ownerships.id_asset = family_assets.id)`);
+  res.render('detailMembers', {result, dataAsset});
 });
 
 router.get('/members/delete/:uid', (req, res) => {

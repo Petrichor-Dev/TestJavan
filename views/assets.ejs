@@ -2,49 +2,8 @@
 
 <div class="container bg-light mt-4 py-3 px-5">
   <div class="row">
-    <div class="col-md-11">
+    <div class="col">
       <h5 class="display-5">Daftar Asset Keluarga</h5>
-    </div>
-
-    <div class="col-md-1">
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-success ms-auto" data-bs-toggle="modal" data-bs-target="#tambahAsset">
-        <b>Add Asset</b>
-      </button>
-
-      <!-- Modal -->
-      <div class="modal fade" id="tambahAsset" tabindex="-1" aria-labelledby="tambahAssetLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="tambahAssetLabel">Tambah Asset Keluarga</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="mb-3">
-                  <input type="text" class="form-control" name="nama_asset" placeholder="Nama asset">
-                </div>
-                <div class="mb-3">
-                  <input type="number" class="form-control" placeholder="Harga asset">
-                </div>
-                <div class="mb-3">
-                  <input type="text" class="form-control" placeholder="Nama Pemilik">
-                </div>
-                <div class="mb-3">
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>Pilih Jenis Kelamin</option>
-                    <option value="laki laki">Laki Laki</option>
-                    <option value="perempuan">Perempuan</option>
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Kirim</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 
@@ -52,61 +11,33 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Asset</th>
-        <th>Harga</th>
-        <th>Pemilik</th>
-        <th>Action</th>
+        <th>ASSET</th>
+        <th>HARGA</th>
+        <th>PEMILIK</th>
+        <th>ACTION</th>
       </tr>
     </thead>
     <tbody>
-      <% result.forEach(data => { %>
+      <% let n = 1; result.forEach(data => { %>
         <tr>
-          <th>#</th>
-          <td><%= data.nama %></td>
-          <td>Rp. <%= data.harga %></td>
-          <td>Tasya</td>
-          <td><a class="btn btn-outline-danger mr-1" onclick="return confirm('Are you sure ?')" href='/assets/delete/<%= data.id %>'>Hapus</a>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editAsset">
-              <b>Edit</b>
-            </button>
+          <th><%= n %></th>
+          <td><%= data.asset.toUpperCase(); %></td>
+          <td>Rp. <%= new Intl.NumberFormat().format(data.harga) %></td>
+          <td>
+              <a href="/members/detail/<%= data.id_member %>">
+                <%= data.nama.toUpperCase(); %>
+              </a>
+          </td>
+          <td>
+            <a class="btn btn-outline-danger mr-1" onclick="return confirm('Are you sure ?')" href='/assets/delete/<%= data.id_asset %>/<%= data.id_member %>'>Hapus</a>
 
-            <!-- Modal -->
-            <div class="modal fade" id="editAsset" tabindex="-1" aria-labelledby="editAssetLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Data Asset</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <form method="post" action="/members/add">
-                      <div class="mb-3">
-                        <input type="text" class="form-control" name="nama_asset" placeholder="Nama asset">
-                      </div>
-                      <div class="mb-3">
-                        <input type="number" class="form-control" placeholder="Harga asset">
-                      </div>
-                      <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="Nama Pemilik">
-                      </div>
-                      <div class="mb-3">
-                        <select class="form-select" aria-label="Default select example">
-                          <option selected>Pilih Jenis Kelamin</option>
-                          <option value="laki laki">Laki Laki</option>
-                          <option value="perempuan">Perempuan</option>
-                        </select>
-                      </div>
-                      <button type="submit" class="btn btn-primary">Kirim</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
           </td>
         </tr>
-      <% }); %>
+      <% n++ }); %>
     </tbody>
   </table>
+  <% if(result.length == 0) { %>
+    <p class="text-center text-danger mt-4"><i><b>Tidak Ada Data Asset</b></i></p>
+  <% } %>
 </div>
 <%- include('layouts/footer') %>

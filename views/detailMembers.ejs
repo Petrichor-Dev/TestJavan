@@ -13,16 +13,16 @@
   <table class="table mt-2 text-center">
     <thead>
       <tr>
-        <th>Nama</th>
-        <th>Jenis Kelamin</th>
-        <th>Action</th>
+        <th>NAMA</th>
+        <th>JENIS KELAMIN</th>
+        <th>ACTION</th>
       </tr>
     </thead>
     <tbody>
 
         <tr>
-          <td><%= result.nama.toUpperCase(); %></td>
-          <td><%= result.jenis_kelamin.toUpperCase() %></td>
+          <td><b><%= result.nama.toUpperCase(); %></b></td>
+          <td><b><%= result.jenis_kelamin.toUpperCase() %></b></td>
           <td>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editData">
@@ -98,52 +98,41 @@
       </div>
     </div>
   </div>
-  <table class="table mt-2 text-center">
+  <table class="table mt-4 text-center">
     <thead>
       <tr>
         <th>#</th>
-        <th>Nama</th>
-        <th>Harga</th>
-        <th>Action</th>
+        <th>ASSET</th>
+        <th>HARGA</th>
+        <th>ACTION</th>
       </tr>
     </thead>
     <tbody>
 
+        <% let n = 1; dataAsset.forEach(data => { %>
         <tr>
-          <th>#</th>
-          <td>Ipon</td>
-          <td>20000</td>
-          <td><a href="#" class="btn btn-outline-danger" onclick="return confirm('Are you sure ?')">Hapus</a>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editAsset">
-              <b>Edit</b>
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="editAsset" tabindex="-1" aria-labelledby="editAssetLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Data Asset</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <form method="post" action="/members/add">
-                      <div class="mb-3">
-                        <input type="text" class="form-control" name="nama_asset" placeholder="Nama Asset">
-                      </div>
-                      <div class="mb-3">
-                        <input type="number" class="form-control" name="harga_asset" placeholder="Harga Asset">
-                      </div>
-                      <button type="submit" class="btn btn-primary">Kirim</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <th><%= n %></th>
+          <td><%= data.nama.toUpperCase(); %></td>
+          <td>Rp. <%= new Intl.NumberFormat().format(data.harga) %></td>
+          <td>
+            <a href="/assets/delete/<%= data.id; %>/<%= data.id_member; %>" class="btn btn-outline-danger" onclick="return confirm('Are you sure ?')">Hapus</a>
+            <a class="btn btn-outline-primary" href="/assets/update/<%= data.id; %>">Edit</a>
           </td>
         </tr>
+        <% n++ }); %>
     </tbody>
   </table>
+  <h5 class="mt-4">
+    <% if(dataAsset.legth !== 0 && dataAsset.length > 1 ) { %>
+      <b>Total Nominal Asset </b> : Rp. <%= new Intl.NumberFormat().format(dataAsset.reduce((a,b) => a.harga+b.harga))  %>
+    <% } else if(dataAsset.length !== 0) { %>
+      <b>Total Nominal Asset </b> : Rp. <%= dataAsset.forEach(data => {data.harga}) %>
+    <% } else {%>
+    <% } %>
+  </h5>
+
+  <% if(dataAsset.length == 0) { %>
+    <p class="text-center text-danger mt-4"><i><b>Aset Tidak di Temukan</b></i></p>
+  <% } %>
 </div>
 <%- include('layouts/footer') %>

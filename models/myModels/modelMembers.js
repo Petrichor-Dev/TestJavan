@@ -1,4 +1,4 @@
-const { family_members } = require('../');
+const { family_members, family_assets } = require('../');
 
 const getMember = async (res, uid) => {
   if(uid){
