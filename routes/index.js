@@ -6,6 +6,7 @@ const { Sequelize, QueryTypes } = require('sequelize');
 const { family_assets } = require('../models');
 // ----------------------------------------------------------------------------- //
 const { param, validationResult, body } = require('express-validator');
+// ----------------------------------------------------------------------------- //
 const { createMember, getMember,
         updateMember, deleteMember} = require('../models/myModels/modelMembers');
 // ----------------------------------------------------------------------------- //
