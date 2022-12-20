@@ -125,9 +125,6 @@
   <h5 class="mt-4">
     <% if(dataAsset.legth !== 0 && dataAsset.length > 1 ) { %>
       <b>Total Nominal Asset </b> : Rp. <%= new Intl.NumberFormat().format(dataAsset.reduce((a,b) => a.harga+b.harga))  %>
-    <% } else if(dataAsset.length !== 0) { %>
-      <b>Total Nominal Asset </b> : Rp. <%= dataAsset.forEach(data => {data.harga}) %>
-    <% } else {%>
     <% } %>
   </h5>
 
