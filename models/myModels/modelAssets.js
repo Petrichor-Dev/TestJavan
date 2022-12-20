@@ -1,5 +1,6 @@
 const { family_assets, ownership } = require('../');
 
+// ---------------------------------CREATE MEMBER ASSET---------------------------------- //
 const createAsset = async (res, data, uid) => {
   await family_assets.create(data);
   const result = await family_assets.findAll({
@@ -11,6 +12,7 @@ const createAsset = async (res, data, uid) => {
   res.redirect(`/members/detail/${uid}`);
 }
 
+// ---------------------------------GET MEMBER ASSET---------------------------------- /
 const getAsset = async (uid) => {
   if(uid){
     const result = await family_assets.findByPk(uid);
@@ -21,16 +23,20 @@ const getAsset = async (uid) => {
   }
 }
 
+// ---------------------------------UPDATE MEMBER ASSET---------------------------------- /
 const updateAsset = async (res, data, assetId, uid) => {
-  await family_assets.update(data, {where:{id:assetId}});
+  await family_assets.update(data, {
+    where:{id:assetId}
+  });
   res.redirect(`/members/detail/${uid}`);
 }
 
+// ---------------------------------DESTROY MEMBER ASSET---------------------------------- /
 const deleteAsset = (res, assetId, uid) => {
-  family_assets.destroy({where:{id:assetId}});
+  family_assets.destroy({
+    where:{id:assetId}
+  });
   res.redirect(`/members/detail/${uid}`);
 }
-
-
 
 module.exports = { createAsset, getAsset, updateAsset, deleteAsset };
