@@ -1,12 +1,16 @@
 var express = require('express');
 var router = express.Router();
 const { Sequelize, QueryTypes } = require('sequelize');
+const { param, validationResult, body } = require('express-validator');
+const { createAsset, getAsset,
+        updateAsset, deleteAsset } = require('../models/myModels/modelAssets');
+
 const sequelize = new Sequelize('test_javan', 'root', '', {
   host: 'localhost',
   dialect: 'mysql'
 });
-const { createAsset, getAsset, updateAsset, deleteAsset } = require('../models/myModels/modelAssets');
 
+// ---------------------------------ASSET PAGE---------------------------------- //
 router.get('/', async (req, res) => {
   // const result = await getAsset(res);
   const [result, meta] = await sequelize.query(`
@@ -19,8 +23,19 @@ router.get('/', async (req, res) => {
   res.render('assets', {result})
 });
 
-router.post('/add/:uid', (req, res) => {
+// ---------------------------------ADD NEW ASSET---------------------------------- //
+router.post('/add/:uid',
+  body('nama_asset').isAlphanumeric('en-US', {ignore: '\s'}).not().isEmpty(),
+  body('harga_asset').isNumeric().not().isEmpty(),
+  param('uid').isNumeric(), (req, res) => {
   const uid = req.params.uid;
+
+  const errors = validationResult(req);
+  const hasErrors = !errors.isEmpty();
+  if(hasErrors){
+    res.redirect('/');
+  }
+
   const data = {
     nama: req.body.nama_asset,
     harga: req.body.harga_asset
@@ -29,21 +44,42 @@ router.post('/add/:uid', (req, res) => {
   createAsset(res, data, uid);
 });
 
-router.post('/update/:assetId/:uid', (req, res) => {
+// ---------------------------------UPDATE DATA ASSET---------------------------------- //
+router.post('/update/:assetId/:uid',
+  body('nama_asset').isAlphanumeric('en-US', {ignore: '\s'}).not().isEmpty(),
+  body('harga_asset').isNumeric().not().isEmpty(),
+  param('uid').isNumeric(),
+  param('assetId').isNumeric(), (req, res) => {
+
   const uid = req.params.uid
   const assetId = req.params.assetId;
+
+  const errors = validationResult(req);
+  const hasErrors = !errors.isEmpty();
+
+  if(hasErrors){
+    res.redirect('/');
+  }
+
   const data = {
     nama: req.body.nama_asset,
     harga: req.body.harga_asset
   }
 
-  // res.send({data,uid,assetId})
-
   updateAsset(res, data, assetId, uid);
 });
 
-router.get('/update/:uid', async (req, res) => {
+// ---------------------------------UPDATE DATA PAGE---------------------------------- //
+router.get('/update/:uid', param('uid').isNumeric(), async (req, res) => {
   const uid = req.params.uid;
+
+  const errors = validationResult(req);
+  const hasErrors = !errors.isEmpty();
+
+  if(hasErrors){
+    res.redirect('/');
+  }
+
   const [result, meta] = await sequelize.query(`
     SELECT ownerships.id_member, family_assets.nama, family_assets.id, family_assets.harga
       FROM ownerships
@@ -53,8 +89,20 @@ router.get('/update/:uid', async (req, res) => {
   res.render('updateAsset', {result});
 });
 
-router.get('/delete/:assetId/:uid', (req, res) => {
+// ---------------------------------DESTROY DATA ASSET---------------------------------- //
+router.get('/delete/:assetId/:uid',
+  param('uid').isNumeric(),
+  param('assetId').isNumeric(), (req, res) => {
+
   let uid = req.params.uid;
+
+  const errors = validationResult(req);
+  const hasErrors = !errors.isEmpty();
+
+  if(hasErrors){
+    res.redirect('/');
+  }
+
   const assetId = req.params.assetId;
   deleteAsset(res, assetId, uid);
 });
