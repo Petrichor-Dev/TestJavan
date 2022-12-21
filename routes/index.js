@@ -79,7 +79,7 @@ router.get('/members/detail/:uid', param('uid').isNumeric(),  async (req, res) =
   let uid = req.params.uid;
   //get member data
   const result = await getMember(res, uid);
-  //get detail member data
+  //get member asset data
   const [dataAsset, meta] = await sequelize.query(`
     SELECT ownerships.id_member, family_assets.id, family_assets.nama, family_assets.harga
       FROM family_assets
